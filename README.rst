@@ -233,3 +233,58 @@ You may copy, distribute and modify the software provided that modifications are
 Derivative works (including modifications or anything statically linked to the library) can only be redistributed under LGPL-3, but applications that use the library don't have to be.
 
 .. _`GitHub releases page`: https://github.com/python-telegram-bot/python-telegram-bot/releases
+Certainly! Here's the English translation of the information provided about adding a "Share Phone Number" feature to your bot:
+How to Add "Share Phone Number" to Your Bot:
+If you want to add a "Share Phone Number" feature like the one in the image to your own bot, here are the steps and technologies you can use.
+1. Choosing a Bot Platform:
+ * Telegram Bot API: As shown in the image, to create a bot that works on Telegram, you need to use the Telegram Bot API. This API provides the functions you need to create a bot and interact with Telegram users.
+ * Facebook Messenger Platform: If you want a Facebook Messenger bot, you can use the Facebook Messenger Platform.
+ * Other Platforms: Other platforms like Discord, Slack, etc., also have their own bot APIs.
+2. Programming Language and Bot Libraries:
+ * Python: Python is a very popular language for bot development. You can use libraries like "python-telegram-bot" or "Telethon."
+ * Node.js: If you're using Node.js, you can use libraries like "Telegraf" or "node-telegram-bot-api."
+ * Other Languages: Other languages like Java, C#, Go, etc., can also be used to create bots.
+3. Implementing the "Share Phone Number" Feature:
+ * Requesting Contact Information: The Telegram Bot API has a "request_contact" keyboard option. This option allows you to display a button that prompts the user to share their phone number.
+ * Handling the Shared Contact: When the user presses the "Share Phone Number" button, your bot receives the phone number through the Telegram API.
+ * Storing and Using the Phone Number: Your bot can store the received phone number and use it for the desired service (e.g., storing it in a database, connecting it to another service, etc.).
+Example Python Code:
+import telegram
+from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+
+# Enter your bot token here
+TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
+
+def start(update: Update, context: CallbackContext) -> None:
+    keyboard = [[KeyboardButton("Share Phone Number", request_contact=True)]]
+    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+    update.message.reply_text("Please share your phone number", reply_markup=reply_markup)
+
+def contact(update: Update, context: CallbackContext) -> None:
+    user_contact = update.effective_message.contact
+    phone_number = user_contact.phone_number
+    update.message.reply_text(f"Your phone number: {phone_number}")
+
+def main() -> None:
+    updater = Updater(TOKEN)
+    dispatcher = updater.dispatcher
+
+    dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(MessageHandler(Filters.contact, contact))
+
+    updater.start_polling()
+    updater.idle()
+
+if name == 'main':
+    main()
+
+Notes:
+ * Make sure to install the "python-telegram-bot" library before using the code above.
+ * Replace "YOUR_TELEGRAM_BOT_TOKEN
+7291492876:AAE9HwTvMPm0uAtGWAZeNhgyPYRd7_LTNas
+" with your actual bot token.
+ * This example shows only the basic functionality; you can enhance the code as needed.
+You can use this information to add the "Share Phone Number" feature to your own bot. If you have any further questions, please ask!
+
+
